@@ -7,11 +7,13 @@ CREATE FUNCTION public.play_multiple_games(number_of_games integer, players inte
     AS $$
 DECLARE 
 count int := 1;
+hand_num int := 0;
     BEGIN
     while count <= number_of_games loop
     perform shuffle();
     perform deal(players);
-    perform rank_hands(count);
+    hand_num := max(hand_no) from hands;
+    perform rank_hands(hand_num);
     count := count + 1;
     end loop;
     END;

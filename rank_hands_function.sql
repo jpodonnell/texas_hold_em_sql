@@ -6,6 +6,9 @@ CREATE FUNCTION public.rank_hands(hand_num integer) RETURNS void
     LANGUAGE plpgsql
     AS $$
 DECLARE 
+trips int := 0;
+fours int := 0;
+pairs int := 0;
 no_of_players int := 0;
 player int := 1;
 suit char(1) := 'E';
@@ -110,13 +113,10 @@ min_card_value := min(card_num) from hand;
 
 --setup the checks for pair/four of a kind/trips/full boat
 create temp table card_counts (num_of_cards int, card_num int);
+
 insert into card_counts(num_of_cards, card_num)
 select count(*) as num_of_cards, card_num 
 from hand group by card_num having count(*) >= 2;
-
-trips int := 0;
-fours int := 0;
-pairs int := 0;
 
 trips := count(*) from card_counts where num_of_cards=3;
 fours := count(*) from card_counts where num_of_cards=4;

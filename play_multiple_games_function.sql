@@ -11,6 +11,7 @@ count int := 1;
     while count <= number_of_games loop
     perform shuffle();
     perform deal(players);
+    perform rank_hands(count);
     count := count + 1;
     end loop;
     END;

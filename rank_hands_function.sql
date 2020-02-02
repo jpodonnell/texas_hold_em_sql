@@ -152,14 +152,14 @@ end if;
 
 update hand set card_num=14 where card_num=1;
 update hands set high_card_1 =
-select cast(card_num as varchar(2)) || ' ' ||  hand_suit from hand join suits
+(select cast(card_num as varchar(2)) || ' ' ||  hand_suit from hand join suits
 on hand_suit=suit_value
-order by card_num, suit_rank limit 1;
+order by card_num, suit_rank limit 1);
 
 update hands set high_card_2 =
-select cast(card_num as varchar(2)) || ' ' ||  hand_suit from hand join suits
+(select cast(card_num as varchar(2)) || ' ' ||  hand_suit from hand join suits
 on hand_suit=suit_value
-order by card_num, suit_rank offset 1 limit 1;
+order by card_num, suit_rank offset 1 limit 1);
 
 player := player + 1;
 end loop;
